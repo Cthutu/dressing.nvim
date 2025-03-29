@@ -427,9 +427,7 @@ end
 ---@param opts string|dressing.InputOptions
 ---@param on_confirm fun(text?: string)
 local show_input = util.make_queued_async_fn(2, function(opts, on_confirm)
-  vim.validate({
-    on_confirm = { on_confirm, "function", false },
-  })
+  vim.validate("on_confirm", on_confirm, "function", false)
   opts = opts or {}
   if type(opts) ~= "table" then
     opts = { prompt = tostring(opts) }

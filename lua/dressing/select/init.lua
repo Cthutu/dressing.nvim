@@ -37,16 +37,8 @@ end
 -- also to prevent focus problems for providers
 -- (see https://github.com/stevearc/dressing.nvim/issues/59)
 local select = vim.schedule_wrap(util.make_queued_async_fn(3, function(items, opts, on_choice)
-  vim.validate({
-    items = {
-      items,
-      function(a)
-        return type(a) == "table" and islist(a)
-      end,
-      "list-like table",
-    },
-    on_choice = { on_choice, "function", false },
-  })
+  vim.validate("items", items, function(a) return type(a) == "table" and islist(a) end, "list_like table")
+  vim.validate("on_choice", on_choice, "function", false)
   opts = opts or {}
   local config = global_config.get_mod_config("select", opts, items)
 
